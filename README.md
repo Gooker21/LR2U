@@ -21,145 +21,41 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-
-
-Структура отчета
-
-- Данные о работе: название работы, фио, группа, выполненные задания.
-- Цель работы.
-- Задание 1.
-- Код реализации выполнения задания. Визуализация результатов выполнения (если применимо).
-- Задание 2.
-- Код реализации выполнения задания. Визуализация результатов выполнения (если применимо).
-- Задание 3.
-- Код реализации выполнения задания. Визуализация результатов выполнения (если применимо).
-- Выводы.
-- ✨Magic ✨
-
 ## Цель работы
-познакомиться с программными средствами для организции передачи данных между инструментами google, Python и Unity
+Познакомиться с программными средствами для организции передачи данных между инструментами google, Python и Unity
 
 ## Задание 1
-### Реализовать совместную работу и передачу данных в связке Python - Google-Sheets – Unity.
-Ход работы:
+### Реализовать совместную работу и передачу данных в связке Python - Google-Sheets – Unity. При выполнении задания используйте видео-материалы и исходные данные, предоставленные преподавателя курса.
 - В облачном сервисе google console подключить API для работы с google sheets и google drive.
 - Реализовать запись данных из скрипта на python в google-таблицу. Данные описывают изменение темпа инфляции на протяжении 11 отсчётных периодов, с учётом стоимости игрового объекта в каждый период.
 - Создать новый проект на Unity, который будет получать данные из google-таблицы, в которую были записаны данные в предыдущем пункте.
 - Написать функционал на Unity, в котором будет воспризводиться аудио-файл в зависимости от значения данных из таблицы.
 
+### Сохранение данных в GoogleSheets:
+![изображение](https://user-images.githubusercontent.com/61794638/194843430-d870f7ee-e939-4398-8253-6f69d49082a8.png)
+### Код для создания данных в GoogleSheets
+![изображение](https://user-images.githubusercontent.com/61794638/194844004-5d7d58ae-c522-4c65-abae-cde8d17d2c49.png)
+### Код для вызова звука в Unity
+![изображение](https://user-images.githubusercontent.com/61794638/195159382-65a1965f-ec9d-478b-bc88-de110e7053d8.png)
+![image](https://user-images.githubusercontent.com/114253132/195175270-c5d5f9e1-8f3d-4bc1-b231-962234e60118.png)
+![image](https://user-images.githubusercontent.com/114253132/195175427-6942b737-b278-4ed6-b5db-1ad8964d4594.png)
+![image](https://user-images.githubusercontent.com/114253132/195175595-5ed21d38-09ec-4867-8eff-a3b83610842a.png)
+### Демонтрация работы в Unity
+![image](https://user-images.githubusercontent.com/114253132/195174422-a13426f0-44bc-41cb-90d6-ac98ae8160a5.png)
 
-![image](https://user-images.githubusercontent.com/114081497/195170017-d8294c2b-8865-4089-9a4d-668d81e33e5d.png)
 
 
 
 ## Задание 2
-### В разделе "ход работы " пошагово выполнить каждый пункт с описанием и примером реализации задачи по теме лабораторной работы.
+### Реализовать запись в Google-таблицу набора данных, полученных с помощью линейной регрессии из лабораторной работы № 1. 
+### Выполение работы:
+![изображение](https://user-images.githubusercontent.com/61794638/195163635-5b6c8568-34a6-472c-be28-a56fc4d70633.png)
+![изображение](https://user-images.githubusercontent.com/61794638/195163669-0721acc3-fde6-4e52-86da-ab1f16230c1b.png)
+![изображение](https://user-images.githubusercontent.com/61794638/195163697-bf0c0a33-7a05-42c1-8399-76295e39a7a7.png)
+![изображение](https://user-images.githubusercontent.com/61794638/195163720-5fd8ddad-30e1-4258-805b-1005a1c537b6.png)
+### Результат работы:
+![изображение](https://user-images.githubusercontent.com/61794638/195163825-6b987c29-1c21-4dc8-986a-20bd0cbcf693.png)
 
-
-
-```py
-
-#Import the required modules, numpy for calculation, and Matplotlib for drawing
-import numpy as np
-import matplotlib.pyplot as plt
-#This code is for jupyter Notebook only
-%matplotlib inline
-# define data, and change list to array
-x = [3,21,22,34,54,34,55,67,89,99]
-x = np.array(x)
-y = [2,22,24,65,79,82,55,130,150,199]
-y = np.array(y)
-#Show the effect of a scatter plot
-plt.scatter(x,y)
-
-def model(a, b, x):
-    return a*x + b
-    #Tahe most commonly used loss function of linear regression model is the loss function of mean variance difference
-def loss_function(a, b, x, y):
-    num = len(x)
-    prediction=model(a,b,x)
-    return (0.5/num) * (np.square(prediction-y)).sum()
-#The optimization function mainly USES partial derivatives to update two parameters a and b
-def optimize(a,b,x,y):
-    num = len(x)
-    prediction = model(a,b,x)
-    #Update the values of A and B by finding the partial derivatives of the loss function on a and b
-    da = (1.0/num) * ((prediction -y)*x).sum()
-    db = (1.0/num) * ((prediction -y).sum())
-    a = a - Lr*da
-    b = b - Lr*db
-    return a, b
-    #iterated function, return a and b
-def iterate(a,b,x,y,times):
-    for i in range(times):
-        a,b = optimize(a,b,x,y)
-    return a,b
-
-#Initialize parameters and display
-a = np.random.rand(1)
-print(a)
-b = np.random.rand(1)
-print(b)
-Lr = 0.000001
-#For the first iteration, the parameter values, losses, and visualization after the iteration are displayed
-a,b = iterate(a,b,x,y,1)
-prediction=model(a,b,x)
-loss = loss_function(a, b, x, y)
-print(a,b,loss)
-plt.scatter(x,y)
-plt.plot(x,prediction)
-
-```
-Шаг первый:
-![image](https://user-images.githubusercontent.com/114081497/192596934-f38282ba-31c4-4d86-85fa-58e3b7bbcf3b.png)
-
-
-Шаг Второй:
-![image](https://user-images.githubusercontent.com/114081497/192597171-dacd3374-d6c2-4364-a1ca-a3a8b4a4ec03.png)
-
-Шаг третий:
-![image](https://user-images.githubusercontent.com/114081497/192597898-9ce06f83-d026-4025-89ec-13b2907109f7.png)
-
-Шаг четвертый:
-![image](https://user-images.githubusercontent.com/114081497/192598125-35b4c0c5-03e6-470f-ac84-95345c730357.png)
-
-Шаг пятый:
-![image](https://user-images.githubusercontent.com/114081497/192598276-4318d642-549f-4e14-bfad-5e4dfac51a4f.png)
-Шаг шестой:
-![image](https://user-images.githubusercontent.com/114081497/192598381-6604e2b6-bf7f-48f4-8d1b-55a6c4752b52.png)
-
-## Задание 3
-### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра.
-
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
-
-```py
-
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
-
-```
 
 ## Выводы
-
-Была проделана большая работа по изучению новых языков программирования, лабораторная работа выполнена.
-
-## Powered by
-
-**BigDigital Team: Denisov | Fadeev | Panov**
+В данной лабораторной работе была изучена работа в связке Python - GoogleSheets - Unity, реализованы звуковые эффекты в Unity в зависимости от значений в GoogleSheets, реализована запись значений из первой лабораторной работы в таблицы.
